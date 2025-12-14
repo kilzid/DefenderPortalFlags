@@ -22,6 +22,7 @@ This extension allows developers and PMs to manage feature flags (flights) for t
     *   **Toggle**: Enable or disable feature flags.
     *   **Pin**: Save frequently used flags to your "Pinned" list. Pinned flags are always shown in the popup.
     *   **Add New**: Manually add new feature flags via the input field at the bottom of the popup.
+*   **Dark Mode**: Toggle between light and dark themes using the icon in the header. The preference is saved automatically.
 *   **Smart Merging**: When on a portal page, the list shows both your pinned flags and any other flags currently active in the URL.
 *   **Apply Changes**: Click "Apply Changes" to reload the page with the updated feature flags.
 *   **Go to Portal**: If you are not on a portal page, click "Go to Portal" to navigate to `security.microsoft.com` with your enabled pinned flags applied.

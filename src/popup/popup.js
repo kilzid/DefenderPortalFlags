@@ -1,5 +1,5 @@
 import { isSupportedUrl, getFlagsFromUrl, constructUrlWithFlags, generatePortalUrl } from '../utils/url-helper.js';
-import { getPinnedFlags, togglePin, updatePinnedFlagStatus } from '../utils/storage-helper.js';
+import { getPinnedFlags, togglePin, updatePinnedFlagStatus, getThemePreference, setThemePreference } from '../utils/storage-helper.js';
 
 // DOM Elements
 const statusIndicator = document.getElementById('status-indicator');
@@ -7,6 +7,9 @@ const flagsList = document.getElementById('flags-list');
 const actionButton = document.getElementById('action-button');
 const newFlagInput = document.getElementById('new-flag-input');
 const addFlagBtn = document.getElementById('add-flag-btn');
+const themeToggle = document.getElementById('theme-toggle');
+const moonIcon = document.querySelector('.moon-icon');
+const sunIcon = document.querySelector('.sun-icon');
 
 // State
 let currentUrl = '';
@@ -14,6 +17,7 @@ let isPortal = false;
 let urlFlags = []; // Flags currently in the URL
 let pinnedFlags = {}; // Object: { flagName: isEnabled }
 let activeFlagsState = new Set(); // Set of flag names currently toggled ON in the UI
+let currentTheme = 'light';
 
 // Icons
 const PIN_ICON = `<svg viewBox="0 0 16 16"><path d="M9.5 1.5a.5.5 0 0 1 .5.5v4.5l2.5 2.5v1h-4v4l-1 1-1-1v-4h-4v-1l2.5-2.5V2a.5.5 0 0 1 .5-.5h4zm-3 5.5L4.707 9h6.586L9 7V2H7v5z"/></svg>`;
@@ -31,7 +35,9 @@ async function init() {
 
     // Load data
     pinnedFlags = await getPinnedFlags();
-    
+    currentTheme = await getThemePreference();
+    applyTheme(currentTheme);
+
     if (isPortal) {
       urlFlags = getFlagsFromUrl(currentUrl);
       // Initialize active state based on URL
@@ -54,6 +60,7 @@ async function init() {
     newFlagInput.addEventListener('keypress', (e) => {
       if (e.key === 'Enter') handleAddFlag();
     });
+    themeToggle.addEventListener('click', handleThemeToggle);
   } catch (error) {
     console.error('Initialization error:', error);
     flagsList.innerHTML = `<div class="empty-state">Error loading extension: ${error.message}</div>`;
@@ -203,6 +210,30 @@ async function handleAddFlag() {
   newFlagInput.value = '';
   
   renderFlags();
+}
+
+/**
+ * Apply the selected theme to the UI
+ */
+function applyTheme(theme) {
+  document.documentElement.setAttribute('data-theme', theme);
+  
+  if (theme === 'dark') {
+    moonIcon.style.display = 'none';
+    sunIcon.style.display = 'block';
+  } else {
+    moonIcon.style.display = 'block';
+    sunIcon.style.display = 'none';
+  }
+}
+
+/**
+ * Handle theme toggle click
+ */
+async function handleThemeToggle() {
+  currentTheme = currentTheme === 'light' ? 'dark' : 'light';
+  applyTheme(currentTheme);
+  await setThemePreference(currentTheme);
 }
 
 // Start

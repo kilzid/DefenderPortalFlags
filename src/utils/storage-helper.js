@@ -4,6 +4,11 @@
 const STORAGE_KEY = 'pinnedFlags';
 
 /**
+ * Key used for storing theme preference in chrome.storage.local.
+ */
+const THEME_KEY = 'themePreference';
+
+/**
  * Retrieves the list of pinned flags from storage.
  * @returns {Promise<Object>} - A promise that resolves to an object where keys are flag names and values are booleans (enabled/disabled).
  */
@@ -55,6 +60,31 @@ export function updatePinnedFlagStatus(flagName, isEnabled) {
       } else {
         resolve(); // Flag not pinned, nothing to update
       }
+    });
+  });
+}
+
+/**
+ * Retrieves the stored theme preference.
+ * @returns {Promise<string>} - A promise that resolves to the theme ('light' or 'dark').
+ */
+export function getThemePreference() {
+  return new Promise((resolve) => {
+    chrome.storage.local.get([THEME_KEY], (result) => {
+      resolve(result[THEME_KEY] || 'light');
+    });
+  });
+}
+
+/**
+ * Updates the theme preference.
+ * @param {string} theme - The theme to set ('light' or 'dark').
+ * @returns {Promise<void>}
+ */
+export function setThemePreference(theme) {
+  return new Promise((resolve) => {
+    chrome.storage.local.set({ [THEME_KEY]: theme }, () => {
+      resolve();
     });
   });
 }

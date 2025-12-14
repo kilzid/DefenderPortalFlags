@@ -7,6 +7,33 @@
   --hover-bg: #f3f2f1;
   --success-color: #107c10;
   --warning-color: #d83b01;
+  --badge-bg: #f3f2f1;
+  --badge-active-bg: #e6f2fb;
+  --badge-active-text: #0078d4;
+  --slider-bg: #ccc;
+  --slider-knob: #ffffff;
+  --empty-state-text: #605e5c;
+  --disabled-button-bg: #c8c6c4;
+  --input-bg: #ffffff;
+}
+
+[data-theme="dark"] {
+  --primary-color: #4f9fd9;
+  --primary-hover: #2b88d8;
+  --bg-color: #252423;
+  --text-color: #ffffff;
+  --border-color: #484644;
+  --hover-bg: #323130;
+  --success-color: #57a300;
+  --warning-color: #f7630c;
+  --badge-bg: #323130;
+  --badge-active-bg: #004c87;
+  --badge-active-text: #6cb8f6;
+  --slider-bg: #605e5c;
+  --slider-knob: #ffffff;
+  --empty-state-text: #a19f9d;
+  --disabled-button-bg: #484644;
+  --input-bg: #323130;
 }
 
 body {
@@ -43,6 +70,29 @@ header {
   gap: 8px;
 }
 
+.header-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.icon-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  color: var(--text-color);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s;
+}
+
+.icon-button:hover {
+  background-color: var(--hover-bg);
+}
+
 h1 {
   margin: 0;
   font-size: 16px;
@@ -53,13 +103,13 @@ h1 {
   font-size: 12px;
   padding: 2px 8px;
   border-radius: 12px;
-  background-color: var(--hover-bg);
+  background-color: var(--badge-bg);
   color: var(--text-color);
 }
 
 .status-badge.active {
-  background-color: #e6f2fb;
-  color: var(--primary-color);
+  background-color: var(--badge-active-bg);
+  color: var(--badge-active-text);
 }
 
 main {
@@ -128,7 +178,7 @@ main {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: #ccc;
+  background-color: var(--slider-bg);
   transition: .4s;
   border-radius: 20px;
 }
@@ -140,7 +190,7 @@ main {
   width: 16px;
   left: 2px;
   bottom: 2px;
-  background-color: white;
+  background-color: var(--slider-knob);
   transition: .4s;
   border-radius: 50%;
 }
@@ -200,6 +250,8 @@ footer {
   border: 1px solid var(--border-color);
   border-radius: 4px;
   font-size: 14px;
+  background-color: var(--input-bg);
+  color: var(--text-color);
 }
 
 .flag-input:focus {
@@ -240,13 +292,13 @@ footer {
 }
 
 .primary-button:disabled {
-  background-color: #c8c6c4;
+  background-color: var(--disabled-button-bg);
   cursor: not-allowed;
 }
 
 .empty-state {
   padding: 32px 16px;
   text-align: center;
-  color: #605e5c;
+  color: var(--empty-state-text);
   font-size: 14px;
 }
