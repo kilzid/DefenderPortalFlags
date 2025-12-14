@@ -13,6 +13,7 @@ const sunIcon = document.querySelector('.sun-icon');
 
 // State
 let currentUrl = '';
+let currentTabId = null;
 let isPortal = false;
 let urlFlags = []; // Flags currently in the URL
 let pinnedFlags = {}; // Object: { flagName: isEnabled }
@@ -31,6 +32,7 @@ async function init() {
     // Get current tab
     const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
     currentUrl = tab.url;
+    currentTabId = tab.id;
     isPortal = isSupportedUrl(currentUrl);
 
     // Load data
@@ -78,7 +80,7 @@ function setupPortalView() {
   
   actionButton.onclick = () => {
     const newUrl = constructUrlWithFlags(currentUrl, Array.from(activeFlagsState));
-    chrome.tabs.update({ url: newUrl });
+    chrome.tabs.update(currentTabId, { url: newUrl });
     window.close();
   };
 }
@@ -94,7 +96,7 @@ function setupExternalView() {
   
   actionButton.onclick = () => {
     const newUrl = generatePortalUrl(Array.from(activeFlagsState));
-    chrome.tabs.update({ url: newUrl });
+    chrome.tabs.update(currentTabId, { url: newUrl });
     window.close();
   };
 }
