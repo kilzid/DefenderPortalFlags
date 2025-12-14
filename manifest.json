@@ -1,0 +1,30 @@
+{
+  "manifest_version": 3,
+  "name": "Defender Portal Flags Manager",
+  "version": "1.0",
+  "description": "Manage feature flags for Microsoft Defender Portal",
+  "permissions": [
+    "activeTab",
+    "storage",
+    "tabs"
+  ],
+  "host_permissions": [
+    "https://security.microsoft.com/*",
+    "https://security.officeppe.com/*",
+    "https://dev.security.microsoft.com/*",
+    "https://sip.security.microsoft.com/*"
+  ],
+  "action": {
+    "default_popup": "src/popup/popup.html",
+    "default_icon": {
+      "16": "assets/icon16.png",
+      "48": "assets/icon48.png",
+      "128": "assets/icon128.png"
+    }
+  },
+  "icons": {
+    "16": "assets/icon16.png",
+    "48": "assets/icon48.png",
+    "128": "assets/icon128.png"
+  }
+}

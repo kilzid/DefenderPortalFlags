@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Defender Portal Flags</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="header-title">
+        <img src="../../assets/icon.svg" alt="Logo" width="24" height="24">
+        <h1>Defender Flags</h1>
+      </div>
+      <div id="status-indicator" class="status-badge">Checking...</div>
+    </header>
+
+    <main>
+      <div id="flags-list" class="flags-list">
+        <!-- Flags will be injected here by JS -->
+        <div class="empty-state">Loading flags...</div>
+      </div>
+    </main>
+
+    <footer>
+      <div class="add-flag-container">
+        <input type="text" id="new-flag-input" placeholder="Add new flag..." class="flag-input">
+        <button id="add-flag-btn" class="secondary-button">Add</button>
+      </div>
+      <button id="action-button" class="primary-button" disabled>Loading...</button>
+    </footer>
+  </div>
+  <script type="module" src="popup.js"></script>
+</body>
+</html>
