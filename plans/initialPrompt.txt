@@ -1,0 +1,31 @@
+write a plan to create a chrome extension that manage feature flags of microsoft defender portal.
+
+the code should be in this folder (DefenderPortalFlags).
+
+example of url of defender portal:
+https://security.microsoft.com/sentinel/precision?tid=a88ee3c5-5dda-4a72-beeb-55dc972df727&flight=PrecisionRedesign,QRadarMigration,InitializeQradarSiemMigrationAgent 
+
+the feature flags (FF) in this url:
+PrecisionRedesign
+QRadarMigration
+InitializeQradarSiemMigrationAgent 
+
+
+i want that this chrome extension will able to do those things:
+1. if the current url is a microsoft defender portal url, and i click on the extension icon, show current feature flags, and allow me to enable/disable them.
+2. when i enable/disable a feature flag, the url should be updated accordingly (adding/removing the feature flag from the flight parameter).
+3. in the button of the extension popup, there should be a "Apply Changes" button that will reload the page with the updated URL.
+4. the extension should store the last state of feature flags and restore them when the user revisits the portal.
+5. if the current url is not a microsoft defender portal url, the button should be "go to microsoft defender portal" and redirect me to the main portal page when clicked with my already saved feature flags applied.
+6. this extenstion should support those domains:
+   - security.microsoft.com
+   - security.officeppe.com
+   - dev.security.microsoft.com
+   - sip.security.microsoft.com
+7. the extension should have a simple and user-friendly UI.
+8. the extension should handle edge cases, such as when there are no feature flags in the URL or when the URL structure changes.
+9. the code base should be well-documented and organized for future maintenance.
+10. the code base should be clean and follow best practices for chrome extension development.
+11. roo will wrote the code for this extension, so we must have agents.md file that explain how to use the extension and how to contribute to it.
+
+remember!  all you need to do write now is to write a plan to create this extension. do not write any code now. just the plan.
