@@ -20,6 +20,7 @@ This extension allows developers and PMs to manage feature flags (flights) for t
 *   **Automatic Detection**: The extension automatically detects if you are on a supported Microsoft Defender Portal URL.
 *   **Flag Management**:
     *   **Toggle**: Enable or disable feature flags.
+    *   **Filter**: Quickly find flags by typing their name in the search box.
     *   **Pin**: Save frequently used flags to your "Pinned" list. Pinned flags are always shown in the popup.
     *   **Add New**: Manually add new feature flags via the input field at the bottom of the popup.
 *   **Dark Mode**: Toggle between light and dark themes using the icon in the header. The preference is saved automatically.

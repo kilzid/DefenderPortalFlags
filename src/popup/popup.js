@@ -10,6 +10,8 @@ const addFlagBtn = document.getElementById('add-flag-btn');
 const themeToggle = document.getElementById('theme-toggle');
 const moonIcon = document.querySelector('.moon-icon');
 const sunIcon = document.querySelector('.sun-icon');
+const searchInput = document.getElementById('search-input');
+const clearSearchBtn = document.getElementById('clear-search-btn');
 
 // State
 let currentUrl = '';
@@ -63,6 +65,8 @@ async function init() {
       if (e.key === 'Enter') handleAddFlag();
     });
     themeToggle.addEventListener('click', handleThemeToggle);
+    searchInput.addEventListener('input', handleSearch);
+    clearSearchBtn.addEventListener('click', handleClearSearch);
   } catch (error) {
     console.error('Initialization error:', error);
     flagsList.innerHTML = `<div class="empty-state">Error loading extension: ${error.message}</div>`;
@@ -113,10 +117,20 @@ function renderFlags() {
     ...urlFlags
   ]);
   
-  const sortedFlags = Array.from(allFlagNames).sort();
+  let sortedFlags = Array.from(allFlagNames).sort();
+
+  // Filter by search term
+  const searchTerm = searchInput.value.trim().toLowerCase();
+  if (searchTerm) {
+    sortedFlags = sortedFlags.filter(flag => flag.toLowerCase().includes(searchTerm));
+  }
 
   if (sortedFlags.length === 0) {
-    flagsList.innerHTML = '<div class="empty-state">No flags detected or pinned.</div>';
+    if (searchTerm) {
+      flagsList.innerHTML = '<div class="empty-state">No flags match your search.</div>';
+    } else {
+      flagsList.innerHTML = '<div class="empty-state">No flags detected or pinned.</div>';
+    }
     return;
   }
 
@@ -236,6 +250,25 @@ async function handleThemeToggle() {
   currentTheme = currentTheme === 'light' ? 'dark' : 'light';
   applyTheme(currentTheme);
   await setThemePreference(currentTheme);
+}
+
+/**
+ * Handle search input
+ */
+function handleSearch() {
+  const searchTerm = searchInput.value.trim();
+  clearSearchBtn.style.display = searchTerm ? 'flex' : 'none';
+  renderFlags();
+}
+
+/**
+ * Handle clear search
+ */
+function handleClearSearch() {
+  searchInput.value = '';
+  clearSearchBtn.style.display = 'none';
+  renderFlags();
+  searchInput.focus();
 }
 
 // Start
