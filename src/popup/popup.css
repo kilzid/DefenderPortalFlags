@@ -198,6 +198,10 @@ main {
   padding: 12px 16px;
   border-bottom: 1px solid var(--border-color);
   transition: background-color 0.2s;
+  cursor: default;
+}
+
+.flag-item[draggable="true"] {
   cursor: grab;
 }
 
