@@ -12,7 +12,7 @@ This Chrome/Edge extension allows developers and PMs to manage feature flags (fl
     *   **Pin**: Save frequently used flags.
     *   **Add New**: Manually add new feature flags.
 *   **Dark Mode**: Toggle between light and dark themes.
-*   **Smart Merging**: Merges pinned flags with active URL flags.
+*   **Smart Merging**: Merges pinned flags with active URL flags. The list is separated into "Saved" and "From URL" sections for clarity.
 *   **One-Click Apply**: Reloads the page with updated flags.
 
 ## Supported Domains

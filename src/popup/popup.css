@@ -49,7 +49,6 @@ body {
   display: flex;
   flex-direction: column;
   height: 100%;
-  max-height: 500px;
 }
 
 header {
@@ -174,6 +173,25 @@ main {
   padding: 0;
 }
 
+.flag-section {
+  margin-bottom: 16px;
+}
+
+.section-header {
+  padding: 8px 16px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--empty-state-text);
+  background-color: var(--hover-bg);
+  border-bottom: 1px solid var(--border-color);
+  border-top: 1px solid var(--border-color);
+}
+
+.flag-section:first-child .section-header {
+  border-top: none;
+}
+
 .flag-item {
   display: flex;
   align-items: center;
@@ -286,6 +304,28 @@ input:checked + .slider:before {
 }
 
 .pin-btn svg {
+  width: 16px;
+  height: 16px;
+  fill: currentColor;
+}
+
+.delete-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  color: #a19f9d;
+  transition: color 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.delete-btn:hover {
+  color: var(--warning-color);
+}
+
+.delete-btn svg {
   width: 16px;
   height: 16px;
   fill: currentColor;
