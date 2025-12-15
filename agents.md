@@ -60,5 +60,5 @@ This extension allows developers and PMs to manage feature flags (flights) for t
 ### Best Practices
 
 *   **Clean Code**: Follow standard JavaScript coding conventions.
-*   **Documentation**: Update this file if you add significant new features or change the workflow. Always check if `AGENTS.md` needs to be updated when completing a task.
+*   **Documentation**: Update this file if you add significant new features or change the workflow. Always check if `AGENTS.md` needs to be updated when completing a task. Additionally, ensure that `README.md` is updated to reflect any new features or changes documented here.
 *   **Error Handling**: Ensure the extension handles edge cases (e.g., invalid URLs, storage errors) gracefully.
