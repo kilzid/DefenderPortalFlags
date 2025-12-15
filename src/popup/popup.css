@@ -180,10 +180,21 @@ main {
   padding: 12px 16px;
   border-bottom: 1px solid var(--border-color);
   transition: background-color 0.2s;
+  cursor: grab;
 }
 
 .flag-item:hover {
   background-color: var(--hover-bg);
+}
+
+.flag-item.dragging {
+  opacity: 0.5;
+  background-color: var(--hover-bg);
+  cursor: grabbing;
+}
+
+.flag-item.drag-over {
+  border-top: 2px solid var(--primary-color);
 }
 
 .flag-info {

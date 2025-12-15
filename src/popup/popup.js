@@ -1,5 +1,5 @@
 import { isSupportedUrl, getFlagsFromUrl, constructUrlWithFlags, generatePortalUrl } from '../utils/url-helper.js';
-import { getPinnedFlags, togglePin, updatePinnedFlagStatus, getThemePreference, setThemePreference } from '../utils/storage-helper.js';
+import { getPinnedFlags, togglePin, updatePinnedFlagStatus, getThemePreference, setThemePreference, getFlagOrder, setFlagOrder } from '../utils/storage-helper.js';
 
 // DOM Elements
 const statusIndicator = document.getElementById('status-indicator');
@@ -12,7 +12,6 @@ const moonIcon = document.querySelector('.moon-icon');
 const sunIcon = document.querySelector('.sun-icon');
 const searchInput = document.getElementById('search-input');
 const clearSearchBtn = document.getElementById('clear-search-btn');
-
 // State
 let currentUrl = '';
 let currentTabId = null;
@@ -21,6 +20,7 @@ let urlFlags = []; // Flags currently in the URL
 let pinnedFlags = {}; // Object: { flagName: isEnabled }
 let activeFlagsState = new Set(); // Set of flag names currently toggled ON in the UI
 let currentTheme = 'light';
+let flagOrder = [];
 
 // Icons
 const PIN_ICON = `<svg viewBox="0 0 16 16"><path d="M9.5 1.5a.5.5 0 0 1 .5.5v4.5l2.5 2.5v1h-4v4l-1 1-1-1v-4h-4v-1l2.5-2.5V2a.5.5 0 0 1 .5-.5h4zm-3 5.5L4.707 9h6.586L9 7V2H7v5z"/></svg>`;
@@ -41,6 +41,8 @@ async function init() {
     pinnedFlags = await getPinnedFlags();
     currentTheme = await getThemePreference();
     applyTheme(currentTheme);
+
+    flagOrder = await getFlagOrder();
 
     if (isPortal) {
       urlFlags = getFlagsFromUrl(currentUrl);
@@ -117,7 +119,19 @@ function renderFlags() {
     ...urlFlags
   ]);
   
-  let sortedFlags = Array.from(allFlagNames).sort();
+  // Sort based on saved order, new flags go to the bottom
+  let sortedFlags = Array.from(allFlagNames).sort((a, b) => {
+    const indexA = flagOrder.indexOf(a);
+    const indexB = flagOrder.indexOf(b);
+
+    if (indexA !== -1 && indexB !== -1) {
+      return indexA - indexB;
+    }
+    if (indexA !== -1) return -1;
+    if (indexB !== -1) return 1;
+
+    return a.localeCompare(b);
+  });
 
   // Filter by search term
   const searchTerm = searchInput.value.trim().toLowerCase();
@@ -140,6 +154,8 @@ function renderFlags() {
     
     const item = document.createElement('li');
     item.className = 'flag-item';
+    item.draggable = true; // Enable drag and drop
+    item.dataset.flag = flagName;
     
     item.innerHTML = `
       <div class="flag-info">
@@ -162,6 +178,14 @@ function renderFlags() {
 
     const pinBtn = item.querySelector('.pin-btn');
     pinBtn.addEventListener('click', () => handlePin(flagName));
+
+    // Drag and Drop Events
+    item.addEventListener('dragstart', handleDragStart);
+    item.addEventListener('dragover', handleDragOver);
+    item.addEventListener('drop', handleDrop);
+    item.addEventListener('dragenter', handleDragEnter);
+    item.addEventListener('dragleave', handleDragLeave);
+    item.addEventListener('dragend', handleDragEnd);
 
     flagsList.appendChild(item);
   });
@@ -269,6 +293,63 @@ function handleClearSearch() {
   clearSearchBtn.style.display = 'none';
   renderFlags();
   searchInput.focus();
+}
+
+let dragSrcEl = null;
+
+function handleDragStart(e) {
+  dragSrcEl = this;
+  e.dataTransfer.effectAllowed = 'move';
+  e.dataTransfer.setData('text/html', this.innerHTML);
+  this.classList.add('dragging');
+}
+
+function handleDragOver(e) {
+  if (e.preventDefault) {
+    e.preventDefault();
+  }
+  e.dataTransfer.dropEffect = 'move';
+  return false;
+}
+
+function handleDragEnter(e) {
+  this.classList.add('drag-over');
+}
+
+function handleDragLeave(e) {
+  this.classList.remove('drag-over');
+}
+
+async function handleDrop(e) {
+  if (e.stopPropagation) {
+    e.stopPropagation();
+  }
+
+  if (dragSrcEl !== this) {
+    // Reorder DOM
+    const allItems = [...flagsList.querySelectorAll('.flag-item')];
+    const srcIndex = allItems.indexOf(dragSrcEl);
+    const targetIndex = allItems.indexOf(this);
+
+    if (srcIndex < targetIndex) {
+      this.after(dragSrcEl);
+    } else {
+      this.before(dragSrcEl);
+    }
+
+    // Update Order Persistence
+    const newOrder = [...flagsList.querySelectorAll('.flag-item')].map(item => item.dataset.flag);
+    flagOrder = newOrder;
+    await setFlagOrder(newOrder);
+  }
+
+  return false;
+}
+
+function handleDragEnd(e) {
+  this.classList.remove('dragging');
+  const items = flagsList.querySelectorAll('.flag-item');
+  items.forEach(item => item.classList.remove('drag-over'));
 }
 
 // Start

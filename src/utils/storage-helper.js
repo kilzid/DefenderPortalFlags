@@ -9,6 +9,11 @@ const STORAGE_KEY = 'pinnedFlags';
 const THEME_KEY = 'themePreference';
 
 /**
+ * Key used for storing flag order in chrome.storage.local.
+ */
+const ORDER_KEY = 'flagOrder';
+
+/**
  * Retrieves the list of pinned flags from storage.
  * @returns {Promise<Object>} - A promise that resolves to an object where keys are flag names and values are booleans (enabled/disabled).
  */
@@ -84,6 +89,31 @@ export function getThemePreference() {
 export function setThemePreference(theme) {
   return new Promise((resolve) => {
     chrome.storage.local.set({ [THEME_KEY]: theme }, () => {
+      resolve();
+    });
+  });
+}
+
+/**
+ * Retrieves the stored flag order.
+ * @returns {Promise<string[]>} - A promise that resolves to an array of flag names in order.
+ */
+export function getFlagOrder() {
+  return new Promise((resolve) => {
+    chrome.storage.local.get([ORDER_KEY], (result) => {
+      resolve(result[ORDER_KEY] || []);
+    });
+  });
+}
+
+/**
+ * Updates the flag order.
+ * @param {string[]} order - The array of flag names in order.
+ * @returns {Promise<void>}
+ */
+export function setFlagOrder(order) {
+  return new Promise((resolve) => {
+    chrome.storage.local.set({ [ORDER_KEY]: order }, () => {
       resolve();
     });
   });
