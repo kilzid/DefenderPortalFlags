@@ -12,8 +12,12 @@ const moonIcon = document.querySelector('.moon-icon');
 const sunIcon = document.querySelector('.sun-icon');
 const searchInput = document.getElementById('search-input');
 const clearSearchBtn = document.getElementById('clear-search-btn');
+const contextMenu = document.getElementById('context-menu');
+const ctxCopy = document.getElementById('ctx-copy');
+
 // State
 let currentUrl = '';
+let contextMenuTargetFlag = null;
 let currentTabId = null;
 let isPortal = false;
 let urlFlags = []; // Flags currently in the URL
@@ -89,6 +93,10 @@ async function init() {
     themeToggle.addEventListener('click', handleThemeToggle);
     searchInput.addEventListener('input', handleSearch);
     clearSearchBtn.addEventListener('click', handleClearSearch);
+
+    // Context Menu Listeners
+    document.addEventListener('click', hideContextMenu);
+    ctxCopy.addEventListener('click', handleContextMenuCopy);
   } catch (error) {
     console.error('Initialization error:', error);
     flagsListContainer.innerHTML = `<div class="empty-state">Error loading extension: ${error.message}</div>`;
@@ -275,6 +283,9 @@ function createFlagItem(flagName, isSavedSection) {
   const pinBtn = item.querySelector('.pin-btn');
   pinBtn.addEventListener('click', () => handlePin(flagName));
 
+  // Context Menu Event
+  item.addEventListener('contextmenu', (e) => showContextMenu(e, flagName));
+
   if (isSavedSection) {
     item.addEventListener('dragstart', handleDragStart);
     item.addEventListener('dragover', handleDragOver);
@@ -406,6 +417,52 @@ function handleClearSearch() {
   clearSearchBtn.style.display = 'none';
   renderFlags();
   searchInput.focus();
+}
+
+/**
+ * Show custom context menu
+ */
+function showContextMenu(e, flagName) {
+  e.preventDefault();
+  contextMenuTargetFlag = flagName;
+  
+  // Position menu
+  const x = e.clientX;
+  const y = e.clientY;
+  
+  // Adjust if close to edge
+  const menuWidth = 150;
+  const menuHeight = 40;
+  const winWidth = window.innerWidth;
+  const winHeight = window.innerHeight;
+  
+  const finalX = (x + menuWidth > winWidth) ? x - menuWidth : x;
+  const finalY = (y + menuHeight > winHeight) ? y - menuHeight : y;
+
+  contextMenu.style.left = `${finalX}px`;
+  contextMenu.style.top = `${finalY}px`;
+  contextMenu.style.display = 'block';
+}
+
+/**
+ * Hide context menu
+ */
+function hideContextMenu() {
+  contextMenu.style.display = 'none';
+}
+
+/**
+ * Handle copy from context menu
+ */
+async function handleContextMenuCopy() {
+  if (contextMenuTargetFlag) {
+    try {
+      await navigator.clipboard.writeText(contextMenuTargetFlag);
+    } catch (err) {
+      console.error('Failed to copy:', err);
+    }
+  }
+  hideContextMenu();
 }
 
 let dragSrcEl = null;

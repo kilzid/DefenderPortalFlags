@@ -8,6 +8,7 @@ This Chrome/Edge extension allows developers and PMs to manage feature flags (fl
 *   **Flag Management**:
     *   **Toggle**: Enable or disable feature flags.
     *   **Filter**: Quickly find flags by typing their name.
+    *   **Copy**: Right-click on any flag to copy its name.
     *   **Reorder**: Drag and drop flags to reorder them.
     *   **Pin**: Save frequently used flags.
     *   **Add New**: Manually add new feature flags.
