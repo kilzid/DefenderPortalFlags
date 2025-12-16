@@ -21,6 +21,7 @@ This extension allows developers and PMs to manage feature flags (flights) for t
 *   **Flag Management**:
     *   **Toggle**: Enable or disable feature flags.
     *   **Filter**: Quickly find flags by typing their name in the search box.
+    *   **Copy**: Right-click on any flag to copy its name to the clipboard.
     *   **Reorder**: Drag and drop flags to reorder them. The custom order is saved automatically.
     *   **Pin**: Save frequently used flags to your "Pinned" list. Pinned flags are always shown in the popup.
     *   **Add New**: Manually add new feature flags via the input field at the bottom of the popup.
