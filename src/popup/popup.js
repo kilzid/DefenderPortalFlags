@@ -48,8 +48,23 @@ async function init() {
 
     if (isPortal) {
       urlFlags = getFlagsFromUrl(currentUrl);
+      
+      // Create a map for case-insensitive lookup of pinned flags
+      const pinnedKeysLower = new Map();
+      Object.keys(pinnedFlags).forEach(key => {
+        pinnedKeysLower.set(key.toLowerCase(), key);
+      });
+
       // Initialize active state based on URL
-      urlFlags.forEach(f => activeFlagsState.add(f));
+      urlFlags.forEach(f => {
+        const lowerF = f.toLowerCase();
+        if (pinnedKeysLower.has(lowerF)) {
+          // If it matches a pinned flag (case-insensitive), use the pinned flag's casing
+          activeFlagsState.add(pinnedKeysLower.get(lowerF));
+        } else {
+          activeFlagsState.add(f);
+        }
+      });
       
       setupPortalView();
     } else {
@@ -156,7 +171,8 @@ function renderFlags() {
   });
 
   // 2. Prepare URL Flags (excluding pinned)
-  let urlOnlyFlags = urlFlags.filter(f => !Object.prototype.hasOwnProperty.call(pinnedFlags, f));
+  const pinnedKeysLower = new Set(Object.keys(pinnedFlags).map(k => k.toLowerCase()));
+  let urlOnlyFlags = urlFlags.filter(f => !pinnedKeysLower.has(f.toLowerCase()));
   urlOnlyFlags.sort((a, b) => a.localeCompare(b));
 
   // 3. Filter
