@@ -30,13 +30,13 @@ Clone this repository to your local machine or download the source code.
 ### 2. Load into Chrome or Edge
 
 **For Google Chrome:**
-1.  Open Chrome and navigate to [chrome://extensions/](chrome://extensions/).
+1.  Open Chrome and navigate to `chrome://extensions/`.
 2.  Enable **Developer mode** in the top right corner.
 3.  Click **Load unpacked**.
 4.  Select the root directory of this project (`DefenderPortalFlags`).
 
 **For Microsoft Edge:**
-1.  Open Edge and navigate to [edge://extensions/](edge://extensions/).
+1.  Open Edge and navigate to `edge://extensions/`.
 2.  Enable **Developer mode** in the left sidebar (or toggle switch).
 3.  Click **Load unpacked**.
 4.  Select the root directory of this project (`DefenderPortalFlags`).
