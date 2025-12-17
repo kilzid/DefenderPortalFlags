@@ -22,15 +22,16 @@
       </div>
     </header>
 
-    <main>
-      <div class="search-container">
-        <div class="search-wrapper">
-          <input type="text" id="search-input" placeholder="Filter flags..." class="search-input">
-          <button id="clear-search-btn" class="clear-search-btn" title="Clear search" style="display: none;">
-            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-          </button>
-        </div>
+    <div class="search-container">
+      <div class="search-wrapper">
+        <input type="text" id="search-input" placeholder="Filter flags..." class="search-input">
+        <button id="clear-search-btn" class="clear-search-btn" title="Clear search" style="display: none;">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
       </div>
+    </div>
+
+    <main>
       <div id="flags-list-container">
         <!-- Sections will be injected here by JS -->
         <div class="empty-state">Loading flags...</div>
