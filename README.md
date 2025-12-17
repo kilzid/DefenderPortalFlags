@@ -30,19 +30,19 @@ Clone this repository to your local machine or download the source code.
 ### 2. Load into Chrome or Edge
 
 **For Google Chrome:**
-1.  Open Chrome and navigate to <a href="chrome://extensions/" target="_blank" rel="noopener noreferrer">chrome://extensions/</a>.
+1.  Open Chrome and navigate to `chrome://extensions/`.
 2.  Enable **Developer mode** in the top right corner.
 3.  Click **Load unpacked**.
 4.  Select the root directory of this project (`DefenderPortalFlags`).
 
 **For Microsoft Edge:**
-1.  Open Edge and navigate to <a href="edge://extensions/" target="_blank" rel="noopener noreferrer">edge://extensions/</a>.
+1.  Open Edge and navigate to `edge://extensions/`.
 2.  Enable **Developer mode** in the left sidebar (or toggle switch).
 3.  Click **Load unpacked**.
 4.  Select the root directory of this project (`DefenderPortalFlags`).
 
 ## Usage
-1.  Navigate to a supported portal (e.g., <a href="https://security.microsoft.com" target="_blank" rel="noopener noreferrer">security.microsoft.com</a>).
+1.  Navigate to a supported portal (e.g., [security.microsoft.com](https://security.microsoft.com)).
 2.  Click the extension icon in the browser toolbar.
 3.  Add, toggle, or pin flags as needed.
 4.  Click **Apply Changes** to refresh the page with your selected flags.
