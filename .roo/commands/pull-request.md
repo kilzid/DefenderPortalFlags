@@ -13,9 +13,11 @@ Follow these steps:
     - If no files are staged, ask the user to stage files first and exit.
 
 2.  **Generate Content**:
-    - Analyze **ONLY** the staged files.
+    - **Context Analysis**:
+        - Analyze all **staged files** (`git diff --cached`).
+        - If the current branch is **NOT** `main`, `master`, or `develop`, also analyze **all previous commits** on the current branch (i.e., commits ahead of the base branch).
     - Generate a **PR Title** following Conventional Commits (e.g., `feat: add user login`, `fix: resolve crash on startup`).
-    - Generate a **PR Description** in Markdown format. Structure it as follows:
+    - Generate a **PR Description** in Markdown format based on the combined analysis. Structure it as follows:
         - **## Summary**: High-level overview.
         - **## Changes**: Bullet points of specific file changes.
         - **## Motivation**: Why this change is needed.
