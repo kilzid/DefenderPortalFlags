@@ -38,11 +38,13 @@
 
 body {
   width: 350px;
+  height: 600px;
   margin: 0;
   padding: 0;
   font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, 'Helvetica Neue', sans-serif;
   background-color: var(--bg-color);
   color: var(--text-color);
+  overflow: hidden;
 }
 
 .container {
@@ -58,9 +60,6 @@ header {
   justify-content: space-between;
   align-items: center;
   background-color: var(--bg-color);
-  position: sticky;
-  top: 0;
-  z-index: 10;
 }
 
 .header-title {
@@ -114,9 +113,6 @@ h1 {
 .search-container {
   padding: 12px 16px 8px 16px;
   background-color: var(--bg-color);
-  position: sticky;
-  top: 0;
-  z-index: 5;
   border-bottom: 1px solid var(--border-color);
 }
 
