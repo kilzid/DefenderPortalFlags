@@ -7,14 +7,21 @@ This Chrome/Edge extension allows developers and PMs to manage feature flags (fl
 *   **Automatic Detection**: Automatically detects if you are on a supported Microsoft Defender Portal URL.
 *   **Flag Management**:
     *   **Toggle**: Enable or disable feature flags.
+    *   **Force Disable**: Right-click on any flag and select "Force Disable" to explicitly set a flag to `false` (appears as `FlagName:false` in the URL). This overrides the default value even if the flag is normally enabled.
+    *   **Clear Override**: Right-click and select "Clear Override" to remove any active override and revert to default behavior.
     *   **Filter**: Quickly find flags by typing their name.
     *   **Copy**: Right-click on any flag to copy its name.
     *   **Reorder**: Drag and drop flags to reorder them.
     *   **Pin**: Save frequently used flags.
-    *   **Add New**: Manually add new feature flags.
+    *   **Add New**: Manually add new feature flags. Add with `:false` suffix (e.g., `MyFlag:false`) to immediately force-disable.
 *   **Dark Mode**: Toggle between light and dark themes.
 *   **Smart Merging**: Merges pinned flags with active URL flags. The list is separated into "Saved" and "From URL" sections for clarity.
 *   **One-Click Apply**: Reloads the page with updated flags.
+
+## URL Syntax
+The extension supports these URL patterns:
+*   `?flight=FlagA,FlagB` - Enables FlagA and FlagB
+*   `?flight=FlagA,FlagB:false` - Enables FlagA and force-disables FlagB
 
 ## Supported Domains
 *   `security.microsoft.com`
