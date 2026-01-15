@@ -41,7 +41,9 @@
 }
 
 body {
-  width: 350px;
+  min-width: 350px;
+  max-width: 600px;
+  width: fit-content;
   height: 600px;
   margin: 0;
   padding: 0;
@@ -232,6 +234,7 @@ main {
   overflow: hidden;
   text-overflow: ellipsis;
   display: block;
+  max-width: 450px;
 }
 
 .flag-controls {
