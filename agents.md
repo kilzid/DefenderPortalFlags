@@ -20,15 +20,24 @@ This extension allows developers and PMs to manage feature flags (flights) for t
 *   **Automatic Detection**: The extension automatically detects if you are on a supported Microsoft Defender Portal URL.
 *   **Flag Management**:
     *   **Toggle**: Enable or disable feature flags.
+    *   **Force Disable**: Right-click on any flag and select "Force Disable" to explicitly set a flag to `false` (appears as `FlagName:false` in the URL). This overrides the default value even if the flag is normally enabled.
+    *   **Clear Override**: Right-click and select "Clear Override" to remove any active override (enabled or force-disabled) and revert to default behavior.
     *   **Filter**: Quickly find flags by typing their name in the search box.
     *   **Copy**: Right-click on any flag to copy its name to the clipboard.
     *   **Reorder**: Drag and drop flags to reorder them. The custom order is saved automatically.
     *   **Pin**: Save frequently used flags to your "Pinned" list. Pinned flags are always shown in the popup.
-    *   **Add New**: Manually add new feature flags via the input field at the bottom of the popup.
+    *   **Add New**: Manually add new feature flags via the input field at the bottom of the popup. You can also add a flag with `:false` suffix (e.g., `MyFlag:false`) to immediately force-disable it.
 *   **Dark Mode**: Toggle between light and dark themes using the icon in the header. The preference is saved automatically.
 *   **Smart Merging**: When on a portal page, the list shows both your pinned flags and any other flags currently active in the URL. The list is separated into "Saved" and "From URL" sections for clarity.
 *   **Apply Changes**: Click "Apply Changes" to reload the page with the updated feature flags.
 *   **Go to Portal**: If you are not on a portal page, click "Go to Portal" to navigate to `security.microsoft.com` with your enabled pinned flags applied.
+
+### URL Syntax
+
+The extension supports the following URL syntax for feature flags:
+
+*   `?flight=FlagA,FlagB` - Enables FlagA and FlagB
+*   `?flight=FlagA,FlagB:false` - Enables FlagA and force-disables FlagB (overrides default value to false)
 
 ### Supported Domains
 

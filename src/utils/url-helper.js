@@ -23,9 +23,30 @@ export function isSupportedUrl(url) {
 }
 
 /**
- * Parses the 'flight' query parameter from a URL into an array of flag names.
+ * Parses a single flag string into an object with name and value.
+ * Handles both "FlagName" (true) and "FlagName:false" (false) formats.
+ * @param {string} flagStr - The flag string to parse.
+ * @returns {{ name: string, value: boolean }} - The parsed flag object.
+ */
+export function parseFlag(flagStr) {
+  const trimmed = flagStr.trim();
+  if (trimmed.toLowerCase().endsWith(':false')) {
+    return {
+      name: trimmed.slice(0, -6), // Remove ':false'
+      value: false
+    };
+  }
+  return {
+    name: trimmed,
+    value: true
+  };
+}
+
+/**
+ * Parses the 'flight' query parameter from a URL into an array of flag objects.
+ * Each object contains the flag name and its value (true for enabled, false for forced disabled).
  * @param {string} url - The URL to parse.
- * @returns {string[]} - Array of feature flag names.
+ * @returns {Array<{ name: string, value: boolean }>} - Array of feature flag objects.
  */
 export function getFlagsFromUrl(url) {
   try {
@@ -34,7 +55,11 @@ export function getFlagsFromUrl(url) {
     if (!flightParam) {
       return [];
     }
-    return flightParam.split(',').map(f => f.trim()).filter(f => f.length > 0);
+    return flightParam
+      .split(',')
+      .map(f => f.trim())
+      .filter(f => f.length > 0)
+      .map(f => parseFlag(f));
   } catch (e) {
     console.error('Error parsing URL flags:', e);
     return [];
@@ -44,18 +69,32 @@ export function getFlagsFromUrl(url) {
 /**
  * Constructs a new URL with the specified feature flags.
  * @param {string} baseUrl - The base URL (or current URL) to modify.
- * @param {string[]} flags - Array of feature flag names to include.
+ * @param {Map<string, boolean>} flagsMap - Map of flag names to their values (true=enabled, false=forced disabled).
  * @returns {string} - The new URL with the updated 'flight' parameter.
  */
-export function constructUrlWithFlags(baseUrl, flags) {
+export function constructUrlWithFlags(baseUrl, flagsMap) {
   try {
     const urlObj = new URL(baseUrl);
     
-    if (!flags || flags.length === 0) {
+    if (!flagsMap || flagsMap.size === 0) {
       urlObj.searchParams.delete('flight');
     } else {
-      // Join flags with comma and set the parameter
-      urlObj.searchParams.set('flight', flags.join(','));
+      // Build flag strings: "Name" for true, "Name:false" for false
+      const flagStrings = [];
+      for (const [name, value] of flagsMap) {
+        if (value === true) {
+          flagStrings.push(name);
+        } else if (value === false) {
+          flagStrings.push(`${name}:false`);
+        }
+        // undefined/null values are not included in the URL
+      }
+      
+      if (flagStrings.length === 0) {
+        urlObj.searchParams.delete('flight');
+      } else {
+        urlObj.searchParams.set('flight', flagStrings.join(','));
+      }
     }
     
     return urlObj.toString();
@@ -67,10 +106,10 @@ export function constructUrlWithFlags(baseUrl, flags) {
 
 /**
  * Generates the default portal URL with the given flags.
- * @param {string[]} flags - Array of feature flag names.
+ * @param {Map<string, boolean>} flagsMap - Map of flag names to their values.
  * @returns {string} - The full URL to security.microsoft.com.
  */
-export function generatePortalUrl(flags) {
+export function generatePortalUrl(flagsMap) {
   const baseUrl = 'https://security.microsoft.com/';
-  return constructUrlWithFlags(baseUrl, flags);
+  return constructUrlWithFlags(baseUrl, flagsMap);
 }

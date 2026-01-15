@@ -7,6 +7,8 @@
   --hover-bg: #f3f2f1;
   --success-color: #107c10;
   --warning-color: #d83b01;
+  --forced-color: #a80000;
+  --forced-bg: #fde7e9;
   --badge-bg: #f3f2f1;
   --badge-active-bg: #e6f2fb;
   --badge-active-text: #0078d4;
@@ -26,6 +28,8 @@
   --hover-bg: #323130;
   --success-color: #57a300;
   --warning-color: #f7630c;
+  --forced-color: #ff6b6b;
+  --forced-bg: #4a2020;
   --badge-bg: #323130;
   --badge-active-bg: #004c87;
   --badge-active-text: #6cb8f6;
@@ -433,4 +437,38 @@ footer {
 .context-menu-item svg {
   fill: currentColor;
   opacity: 0.7;
+}
+
+/* Force Disabled / Forced False Flags */
+.flag-item.forced {
+  background-color: var(--forced-bg);
+  border-left: 3px solid var(--forced-color);
+}
+
+.flag-item.forced:hover {
+  background-color: var(--forced-bg);
+}
+
+.flag-item.forced .flag-name {
+  color: var(--forced-color);
+}
+
+.flag-item.forced .forced-badge {
+  font-size: 10px;
+  padding: 1px 6px;
+  border-radius: 8px;
+  background-color: var(--forced-color);
+  color: white;
+  margin-left: 8px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+/* Context menu item for dangerous actions */
+.context-menu-item.danger {
+  color: var(--forced-color);
+}
+
+.context-menu-item.danger:hover {
+  background-color: var(--forced-bg);
 }

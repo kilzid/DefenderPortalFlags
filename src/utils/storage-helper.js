@@ -14,8 +14,16 @@ const THEME_KEY = 'themePreference';
 const ORDER_KEY = 'flagOrder';
 
 /**
+ * Flag status values:
+ * - true: Flag is enabled (will appear as "FlagName" in URL)
+ * - null: Flag is in default/off state (will not appear in URL)
+ * - 'forced': Flag is force-disabled (will appear as "FlagName:false" in URL)
+ */
+
+/**
  * Retrieves the list of pinned flags from storage.
- * @returns {Promise<Object>} - A promise that resolves to an object where keys are flag names and values are booleans (enabled/disabled).
+ * @returns {Promise<Object>} - A promise that resolves to an object where keys are flag names
+ *                              and values are true (enabled), null (default/off), or 'forced' (force-disabled).
  */
 export function getPinnedFlags() {
   return new Promise((resolve) => {
@@ -30,15 +38,16 @@ export function getPinnedFlags() {
  * If the flag is already pinned, it removes it.
  * If the flag is not pinned, it adds it with a default enabled status of true.
  * @param {string} flagName - The name of the flag to toggle.
+ * @param {boolean|null|string} [initialStatus=true] - The initial status when pinning (true, null, or 'forced').
  * @returns {Promise<Object>} - A promise that resolves to the updated pinned flags object.
  */
-export function togglePin(flagName) {
+export function togglePin(flagName, initialStatus = true) {
   return new Promise((resolve) => {
     getPinnedFlags().then((pinnedFlags) => {
       if (Object.prototype.hasOwnProperty.call(pinnedFlags, flagName)) {
         delete pinnedFlags[flagName];
       } else {
-        pinnedFlags[flagName] = true; // Default to enabled when pinning
+        pinnedFlags[flagName] = initialStatus; // Use provided initial status when pinning
       }
       
       chrome.storage.local.set({ [STORAGE_KEY]: pinnedFlags }, () => {
@@ -49,16 +58,16 @@ export function togglePin(flagName) {
 }
 
 /**
- * Updates the enabled status of a pinned flag.
+ * Updates the status of a pinned flag.
  * @param {string} flagName - The name of the flag.
- * @param {boolean} isEnabled - The new enabled status.
+ * @param {boolean|null|string} status - The new status: true (enabled), null (default/off), or 'forced' (force-disabled).
  * @returns {Promise<void>}
  */
-export function updatePinnedFlagStatus(flagName, isEnabled) {
+export function updatePinnedFlagStatus(flagName, status) {
   return new Promise((resolve) => {
     getPinnedFlags().then((pinnedFlags) => {
       if (Object.prototype.hasOwnProperty.call(pinnedFlags, flagName)) {
-        pinnedFlags[flagName] = isEnabled;
+        pinnedFlags[flagName] = status;
         chrome.storage.local.set({ [STORAGE_KEY]: pinnedFlags }, () => {
           resolve();
         });
