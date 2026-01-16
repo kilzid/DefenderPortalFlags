@@ -17,6 +17,7 @@ This Chrome/Edge extension allows developers and PMs to manage feature flags (fl
 *   **Dark Mode**: Toggle between light and dark themes.
 *   **Smart Merging**: Merges pinned flags with active URL flags. The list is separated into "Saved" and "From URL" sections for clarity.
 *   **One-Click Apply**: Reloads the page with updated flags.
+*   **Send Feedback**: Click the envelope icon in the header to email feedback to the maintainers.
 
 ## URL Syntax
 The extension supports these URL patterns:
