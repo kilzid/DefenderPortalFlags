@@ -35,3 +35,7 @@ Follow these steps:
 5.  **Verification**:
     - Verify the file was created.
     - Output the success message: "Successfully created [filename]".
+
+6. **open chrome web store developer dashboard**:
+    - Open the Chrome Web Store Developer Dashboard in the default web browser.
+    - Use the command: `open https://chrome.google.com/webstore/developer/dashboard`
