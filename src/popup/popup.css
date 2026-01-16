@@ -475,3 +475,9 @@ footer {
 .context-menu-item.danger:hover {
   background-color: var(--forced-bg);
 }
+
+/* Icon button as anchor (for feedback link) */
+a.icon-button {
+  text-decoration: none;
+  color: inherit;
+}
