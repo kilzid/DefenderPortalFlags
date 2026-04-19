@@ -30,7 +30,7 @@ let pinnedFlags = {}; // Object: { flagName: true | null | 'forced' }
 // - undefined: not in URL (default behavior)
 let activeFlagsState = new Map();
 let initialActiveFlagsState = new Map(); // To track changes
-let currentTheme = 'light';
+let currentTheme = 'dark';
 let flagOrder = [];
 
 // Icons
