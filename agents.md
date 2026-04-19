@@ -32,6 +32,7 @@ This extension allows developers and PMs to manage feature flags (flights) for t
 *   **Apply Changes**: Click "Apply Changes" to reload the page with the updated feature flags.
 *   **Go to Portal**: If you are not on a portal page, click "Go to Portal" to navigate to `security.microsoft.com` with your enabled pinned flags applied.
 *   **Send Feedback**: Click the envelope icon in the header to open your email client and send feedback to the extension maintainers.
+*   **Dev Build Indicator**: When the extension is loaded as an unpacked (development) build, an orange `DEV` badge is shown on the toolbar action icon. The store-installed (prod) build shows no badge. Detection uses `chrome.management.getSelf().installType`.
 
 ### URL Syntax
 
