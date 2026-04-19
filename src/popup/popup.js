@@ -16,6 +16,7 @@ const contextMenu = document.getElementById('context-menu');
 const ctxCopy = document.getElementById('ctx-copy');
 const ctxForceDisable = document.getElementById('ctx-force-disable');
 const ctxClearOverride = document.getElementById('ctx-clear-override');
+const sendFeedback = document.getElementById('send-feedback');
 
 // State
 let currentUrl = '';
@@ -126,6 +127,13 @@ async function init() {
     themeToggle.addEventListener('click', handleThemeToggle);
     searchInput.addEventListener('input', handleSearch);
     clearSearchBtn.addEventListener('click', handleClearSearch);
+
+    if (sendFeedback) {
+      sendFeedback.addEventListener('click', (e) => {
+        e.preventDefault();
+        chrome.tabs.create({ url: e.currentTarget.getAttribute('href') });
+      });
+    }
 
     // Context Menu Listeners
     document.addEventListener('click', hideContextMenu);
