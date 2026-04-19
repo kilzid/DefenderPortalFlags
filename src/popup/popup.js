@@ -75,6 +75,7 @@ async function init() {
     pinnedFlags = await getPinnedFlags();
     currentTheme = await getThemePreference();
     applyTheme(currentTheme);
+    await applyBuildIndicator();
 
     flagOrder = await getFlagOrder();
 
@@ -493,6 +494,45 @@ function applyTheme(theme) {
   } else {
     moonIcon.style.display = 'block';
     sunIcon.style.display = 'none';
+  }
+}
+
+/**
+ * Detect whether this extension is running as an unpacked (development)
+ * build and reflect that on the toolbar action badge.
+ */
+async function applyBuildIndicator() {
+  let isDev = false;
+  try {
+    const info = await new Promise((resolve, reject) => {
+      try {
+        chrome.management.getSelf((result) => {
+          const err = chrome.runtime.lastError;
+          if (err) {
+            reject(err);
+          } else {
+            resolve(result);
+          }
+        });
+      } catch (e) {
+        reject(e);
+      }
+    });
+    isDev = info && info.installType === 'development';
+  } catch (e) {
+    // management API not available or failed; treat as non-dev.
+    isDev = false;
+  }
+
+  try {
+    if (chrome.action && chrome.action.setBadgeText) {
+      chrome.action.setBadgeText({ text: isDev ? 'DEV' : '' });
+      if (isDev && chrome.action.setBadgeBackgroundColor) {
+        chrome.action.setBadgeBackgroundColor({ color: '#d97706' });
+      }
+    }
+  } catch (e) {
+    // ignore if chrome.action badge APIs are unavailable
   }
 }
 
