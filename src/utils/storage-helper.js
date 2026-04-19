@@ -85,7 +85,7 @@ export function updatePinnedFlagStatus(flagName, status) {
 export function getThemePreference() {
   return new Promise((resolve) => {
     chrome.storage.local.get([THEME_KEY], (result) => {
-      resolve(result[THEME_KEY] || 'light');
+      resolve(result[THEME_KEY] || 'dark');
     });
   });
 }
