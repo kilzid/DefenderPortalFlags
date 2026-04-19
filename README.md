@@ -30,6 +30,7 @@ The extension supports these URL patterns:
 *   `security.officeppe.com`
 *   `dev.security.microsoft.com`
 *   `sip.security.microsoft.com`
+*   `df.security.microsoft.com`
 
 ## Installation
 

@@ -47,6 +47,7 @@ The extension supports the following URL syntax for feature flags:
 *   `security.officeppe.com`
 *   `dev.security.microsoft.com`
 *   `sip.security.microsoft.com`
+*   `df.security.microsoft.com`
 
 ## Contribution
 
