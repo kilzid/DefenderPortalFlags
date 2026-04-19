@@ -703,3 +703,10 @@ function handleDragEnd(e) {
 
 // Start
 document.addEventListener('DOMContentLoaded', init);
+
+// Handle feedback link via chrome.tabs.create for reliable mailto in extension popup
+document.getElementById('send-feedback').addEventListener('click', (e) => {
+  e.preventDefault();
+  const mailto = e.currentTarget.getAttribute('href');
+  chrome.tabs.create({ url: mailto });
+});
