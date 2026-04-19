@@ -68,6 +68,7 @@ The extension supports the following URL syntax for feature flags:
 *   **UI Changes**: Modify `src/popup/popup.html` and `src/popup/popup.css`.
 *   **Logic Changes**: Update `src/popup/popup.js` for UI interaction or `src/utils/` for core logic.
 *   **Permissions**: If new permissions are needed, update `manifest.json`.
+*   **Permission Changes Require Explicit User Approval**: Do **not** add features that require changing the extension's permissions in `manifest.json` (including `permissions`, `host_permissions`, or `optional_permissions`) without first confirming with the user. If a proposed feature would require a new or expanded permission, stop and ask the user whether they want to proceed, explain which permission is needed and why, and only continue after explicit approval. Prefer alternative implementations that work with the existing permission set whenever possible.
 
 ### Best Practices
 
