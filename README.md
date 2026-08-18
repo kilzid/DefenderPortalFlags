@@ -26,11 +26,20 @@ The extension supports these URL patterns:
 *   `?flight=FlagA,FlagB:false` - Enables FlagA and force-disables FlagB
 
 ## Supported Domains
+MTO portals use the same flag syntax and are supported by prefixing each standard hostname with `mto.`:
+
 *   `security.microsoft.com`
 *   `security.officeppe.com`
 *   `dev.security.microsoft.com`
 *   `sip.security.microsoft.com`
 *   `df.security.microsoft.com`
+*   `mto.security.microsoft.com`
+*   `mto.security.officeppe.com`
+*   `mto.dev.security.microsoft.com`
+*   `mto.sip.security.microsoft.com`
+*   `mto.df.security.microsoft.com`
+
+Pinned flags are shared across standard and MTO portals. The default **Go to Portal** action continues to navigate to `security.microsoft.com`.
 
 ## Installation
 
