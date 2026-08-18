@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Defender Portal Flags Manager",
-  "version": "1.4",
+  "version": "1.5",
   "description": "Manage feature flags for Microsoft Defender Portal",
   "permissions": [
     "activeTab",
