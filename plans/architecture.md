@@ -50,11 +50,20 @@ When the popup opens on a Defender Portal URL, the UI must merge these sources:
 ### URL Handling
 *   **Parameter**: `flight`
 *   **Format**: Comma-separated string (e.g., `flight=FlagA,FlagB`).
-*   **Domains**:
+*   **Domain matching**: The five standard hostnames are canonical. The supported set contains each exact standard hostname and its exact `mto.`-prefixed counterpart; suffixes and wildcard matches are not accepted.
+*   **Standard domains**:
     *   `security.microsoft.com`
     *   `security.officeppe.com`
     *   `dev.security.microsoft.com`
     *   `sip.security.microsoft.com`
+    *   `df.security.microsoft.com`
+*   **MTO domains**:
+    *   `mto.security.microsoft.com`
+    *   `mto.security.officeppe.com`
+    *   `mto.dev.security.microsoft.com`
+    *   `mto.sip.security.microsoft.com`
+    *   `mto.df.security.microsoft.com`
+*   **Shared behavior**: Both portal families use the same `flight` syntax and `chrome.storage.local` pinned flags. Navigation from a non-portal page remains on standard `security.microsoft.com`.
 
 ## Project Structure
 ```

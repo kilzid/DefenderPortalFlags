@@ -1,13 +1,17 @@
 /**
- * Supported domains for the Microsoft Defender Portal.
+ * Standard domains for the Microsoft Defender Portal.
  */
-const SUPPORTED_DOMAINS = [
+const STANDARD_PORTAL_DOMAINS = [
   'security.microsoft.com',
   'security.officeppe.com',
   'dev.security.microsoft.com',
   'sip.security.microsoft.com',
   'df.security.microsoft.com'
 ];
+
+const SUPPORTED_DOMAINS = new Set(
+  STANDARD_PORTAL_DOMAINS.flatMap(domain => [domain, `mto.${domain}`])
+);
 
 /**
  * Checks if the given URL belongs to a supported Defender Portal domain.
@@ -17,7 +21,7 @@ const SUPPORTED_DOMAINS = [
 export function isSupportedUrl(url) {
   try {
     const urlObj = new URL(url);
-    return SUPPORTED_DOMAINS.includes(urlObj.hostname);
+    return SUPPORTED_DOMAINS.has(urlObj.hostname);
   } catch (e) {
     return false;
   }
