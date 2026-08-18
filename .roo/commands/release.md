@@ -39,3 +39,13 @@ Follow these steps:
         - `git tag v[new_version]`
         - `git push origin v[new_version]`
     - Output the path to the generated zip file and the release notes.
+
+7.  **Publish to the Chrome Web Store (manual final step)**:
+    - Open https://chrome.google.com/webstore/devconsole and sign in with the owner account.
+    - Select **Defender Portal Flags Manager**.
+    - Go to **Package**, choose **Upload new package**, and select `DefenderPortalFlags-v[new_version].zip`.
+    - Confirm the dashboard recognizes version `[new_version]`. Resolve all upload validation errors before proceeding.
+    - Review **Store Listing**, **Privacy**, and **Distribution**. Update them only if the release changed behavior, data handling, or permissions.
+    - Submit the release for review. If offered, choose immediate or deferred publishing, then monitor the review status in the dashboard.
+    - This is a manual external step. Never claim store publication succeeded without user confirmation or dashboard evidence.
+    - Do not use automated browser actions to submit or publish without explicit user approval.

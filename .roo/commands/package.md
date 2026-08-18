@@ -36,6 +36,6 @@ Follow these steps:
     - Verify the file was created.
     - Output the success message: "Successfully created [filename]".
 
-6. **open chrome web store developer dashboard**:
-    - Open the Chrome Web Store Developer Dashboard in the default web browser.
-    - Use the command: `open https://chrome.google.com/webstore/developer/dashboard`
+6. **Open Chrome Web Store Developer Dashboard**:
+    - Open https://chrome.google.com/webstore/devconsole in the default web browser.
+    - Packaging does not upload, submit, or publish the extension. Follow the detailed manual publishing checklist in `/release`.
