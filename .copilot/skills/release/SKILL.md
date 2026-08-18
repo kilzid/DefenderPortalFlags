@@ -110,9 +110,15 @@ Produce a clean, store-ready zip.
   Then ask whether to open a PR (do not create it automatically).
 - If **no**: stop and summarize local state.
 
-### 7. Open Chrome Web Store dashboard (optional)
-- Ask: "Open Chrome Web Store Developer Dashboard to upload the zip?"
-- If yes: `open https://chrome.google.com/webstore/developer/dashboard`
+### 7. Publish to the Chrome Web Store (manual final step)
+- Open https://chrome.google.com/webstore/devconsole and sign in with the owner account.
+- Select **Defender Portal Flags Manager**.
+- Go to **Package**, choose **Upload new package**, and select `DefenderPortalFlags-v<new_version>.zip`.
+- Confirm the dashboard recognizes version `<new_version>`. Resolve all upload validation errors before proceeding.
+- Review **Store Listing**, **Privacy**, and **Distribution**. Update them only if the release changed behavior, data handling, or permissions.
+- Submit the release for review. If offered, choose immediate or deferred publishing, then monitor the review status in the dashboard.
+- This is a manual external step. Never claim store publication succeeded without user confirmation or dashboard evidence.
+- Do not use automated browser actions to submit or publish without explicit user approval.
 
 ## Final output to user
 
@@ -121,7 +127,7 @@ Always end with:
 - Branch name
 - Absolute path to the generated zip
 - The rendered changelog (fenced markdown block)
-- Next-step hint: upload the zip to the Chrome Web Store dashboard
+- The manual Chrome Web Store publishing checklist and current confirmed status
 
 ## Guardrails
 
@@ -129,5 +135,7 @@ Always end with:
 - **Never modify `manifest.json` fields other than `version`.**
 - **Never add a new permission** to `manifest.json` as part of a release.
 - **Never edit `.roo/` or plans during a release.**
+- **Never use automated browser actions to submit or publish a Chrome Web Store release without explicit user approval.**
+- **Never report Chrome Web Store publication as successful without user confirmation or dashboard evidence.**
 - If any git step fails, stop and surface the error — do not attempt destructive recovery (no `git reset --hard`, no force-push) without asking.
 - Use the `Co-authored-by: Copilot <223556219+Copilot@users.noreply.github.com>` trailer on every commit you create.
